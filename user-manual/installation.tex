@@ -1,0 +1,81 @@
+\chapter{xSDK Installation}
+{\color{red}TODO: Ignore this.  Barry is going to take care of the circular
+dependency issue; then we can revisit the installation procedure.}
+
+\section{Using PETSc configuration script}
+The easiest way to install the various xSDK libaries (Trilinos, PETSc, Hypre,
+and SuperLU) is the following three step process:
+
+\begin{enumerate}
+  \item Download and unpack the PETSc tarball from
+  \url{http://www.mcs.anl.gov/petsc/}, or pull from the repo via {\tt git clone
+  https://bitbucket.org/petsc/petsc}.
+  \item Run the PETSc configuration script.
+  \item Type {\tt make}, then {\tt make install}.  Don't worry; the PETSc
+  configuration script will remind you to do this.
+\end{enumerate}
+
+The PETSc configuration script is very sophisticated, as you can tell by typing
+{\tt ./configure --help}.  It will produce a list for you of all the different
+configuration options (organized into different categories).  The most
+interesting of these configuation options is {\tt --download-<PACKAGE>}, where
+{\tt PACKAGE} can be hypre, superlu, trilinos, etc.  If you install PETSc via
+the following line:
+\\
+{\tt ./configure --prefix=<HOME>/petsc-install --download-hypre
+--download-superlu}
+\\
+PETSc will download and install hypre and SuperLU for you, and PETSc itself will
+be installed to the directory {\tt <HOME>/petsc-install}.  If PETSc encounters
+any problems, such as being unable to find your MPI installation, it will output
+a helpful error message explaining what the problem is and how you can fix it.
+
+If PETSc finds itself unable to download any packages you request (because you
+are behind a firewall, for instance), it will output the following message
+explaining how to fix the problem:
+
+{\tt \scriptsize
+\begin{verbatim}
+===============================================================================                                                                
+  Trying to download http://ftp.mcs.anl.gov/pub/petsc/externalpackages/hypre-2.10.0b-p1.tar.gz for HYPRE 
+=============================================================================== 
+===============================================================================                                                                
+  Trying to download ftp://ftp.mcs.anl.gov/pub/petsc/externalpackages/hypre-2.10.0b-p1.tar.gz for HYPRE 
+===============================================================================                                                                                                                                                                                                   ******************************************************************************* UNABLE to CONFIGURE with GIVEN OPTIONS    (see configure.log for details):
+-------------------------------------------------------------------------------
+Unable to download package hypre from: http://ftp.mcs.anl.gov/pub/petsc/externalpackages/hypre-2.10.0b-p1.tar.gz
+* If URL specified manually - perhaps there is a typo?
+* If your network is disconnected - please reconnect and rerun ./configure
+* Or perhaps you have a firewall blocking the download
+* Alternatively, you can download the above URL manually, to /yourselectedlocation/hypre-2.10.0b-p1.tar.gz
+  and use the configure option:
+  --download-hypre=/yourselectedlocation/hypre-2.10.0b-p1.tar.gz
+Unable to download package hypre from: ftp://ftp.mcs.anl.gov/pub/petsc/externalpackages/hypre-2.10.0b-p1.tar.gz
+* If URL specified manually - perhaps there is a typo?
+* If your network is disconnected - please reconnect and rerun ./configure
+* Or perhaps you have a firewall blocking the download
+* Alternatively, you can download the above URL manually, to /yourselectedlocation/hypre-2.10.0b-p1.tar.gz
+  and use the configure option:
+  --download-hypre=/yourselectedlocation/hypre-2.10.0b-p1.tar.gz
+*******************************************************************************
+\end{verbatim}
+}
+
+\section{Without PETSc configuration script}
+If you would like to manually install Trilinos and enable the PETSc, hypre, and
+SuperLU interfaces, you may specify those options in the Trilinos configuration
+script (which I will call do-configure).  Note that Trilinos requires all third
+party libraries to be installed before the configuration process.  An example
+configuration script is below:
+
+\begin{lstinputlisting}[caption=do-configure,label=config-script]{src/do-configure}
+\end{lstinputlisting}
+
+Let's examine this script in more detail.  Since we are interested in the PETSc
+interface, we must first define {\tt PETSC\_DIR} and {\tt PETSC\_ARCH}. 
+{\tt PETSC\_LIB} looks intimidating at first, but you can generate it
+automatically by typing {\tt make getlinklibs} in {\tt PETSC\_DIR}.  We then
+define the PETSc and hypre include paths.  Everything else looks pretty normal
+until we reach lines 43--50, which enable the Epetra-based PETSc interface. 
+Lines 54--58 enable the Epetra-based hypre interface.  Then lines 70--73 enable
+the Tpetra-based interfaces living in the pre-Copyright package xSDKTrilinos.

@@ -1,0 +1,50 @@
+\documentclass[pdf,12pt,report,strict]{SANDreport}
+
+\usepackage{listings}                    % needed for source code
+\usepackage[usenames,dvipsnames]{xcolor} % needed for color
+\usepackage{hyperref}                    % needed for URLs
+
+\title{xSDK User Manual}
+\author{Alicia Marie Klinvex}
+
+\SANDauthor{Alicia Marie Klinvex}
+\SANDnum{SAND2015-XXXX}
+\SANDprintDate{January 19, 2015}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make the code look pretty
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{keywordColor}{HTML}{91236C}
+\definecolor{stringColor}{HTML}{2D04FF}
+\definecolor{commentColor}{HTML}{87AF9B}
+
+\lstset{
+  language=C++,
+  backgroundcolor=\color{black!5},
+  basicstyle=\tiny\ttfamily,
+  numbers=left,
+  breaklines=true,
+  commentstyle=\color{commentColor},
+  keywordstyle=\bfseries\color{keywordColor},
+  stringstyle=\color{stringColor},
+  showstringspaces=false
+}
+
+\renewcommand{\lstlistingname}{Program}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\maketitle
+
+\input{abstract}
+
+\include{introduction}
+
+\SANDmain
+
+\include{installation}
+
+\include{interfaces}
+
+\end{document}

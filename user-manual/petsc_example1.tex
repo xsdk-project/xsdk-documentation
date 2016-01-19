@@ -1,0 +1,36 @@
+Our first example (Program \ref{src/PETSc_AnasaziEx.cpp}) shows how to compute
+the smallest eigenpairs of a PETSc Mat, specificially Poisson2D, using Trilinos'
+Anasazi package.
+
+\begin{lstinputlisting}[caption=PETSc\_AnasaziEx.cpp,label=PETSc_AnasaziEx.cpp]{src/PETSc_AnasaziEx.cpp}
+\end{lstinputlisting}
+
+\paragraph{Lines 1--7}
+Include statements
+
+\paragraph{Lines 11--28}
+Typedefs and using statements to make the code more readable
+
+\paragraph{Lines 30--36}
+PETSc datatypes
+
+\paragraph{Lines 38--41}
+Get the command line arguments using PETSc.  This example has three of them: the
+number of mesh points in the x direction, number of mesh points in the y
+direction, and the number of desired eigenpairs.
+
+\paragraph{Lines 43--62}
+Create the PETSc Mat and set its values.
+
+\paragraph{Line 64}
+Wrap the PETSc Mat in a Tpetra::PETScAIJMatrix.  Since Anasazi only requires a
+Tpetra::Operator\footnote{RowMatrix is a specific type of Operator, and
+CrsMatrix is a specific type of RowMatrix.  Therefore, you can use a RowMatrix
+anywhere an Operator is accepted, but you can't necessarily use a RowMatrix
+anywhere a CrsMatrix is expected.}, we do not have to deep copy the data to a
+Tpetra::CrsMatrix.
+
+\paragraph{Line 66}
+Create a random initial guess for the eigensolver.  Note that we can treat
+tpetraA just like any other Tpetra::RowMatrix and obtain its domain map via
+getDomainMap().
