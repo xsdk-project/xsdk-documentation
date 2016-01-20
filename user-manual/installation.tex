@@ -22,10 +22,9 @@ interesting of these configuation options is {\tt --download-<PACKAGE>}, where
 {\tt PACKAGE} can be hypre, superlu, trilinos, etc.  If you install PETSc via
 the following line:
 \\
-{\tt ./configure --prefix=<HOME>/petsc-install --download-hypre
---download-superlu}
+{\tt ./configure --prefix=<HOME>/petsc-install --download-xsdk}
 \\
-PETSc will download and install hypre and SuperLU for you, and PETSc itself will
+PETSc will download and install hypre, SuperLU, Trilinos, as well as commonly needed dependent package for you, and PETSc itself will
 be installed to the directory {\tt <HOME>/petsc-install}.  If PETSc encounters
 any problems, such as being unable to find your MPI installation, it will output
 a helpful error message explaining what the problem is and how you can fix it.

@@ -2,6 +2,18 @@
 The following are the libraries included in the xSDK.
 {\color{red}TODO: Maybe each team should write a paragraph or so for this.}
 
+Two of the libraries, PETSc and Trilinos are comprehensive numerical
+software packages\footnote{Note that the term ``Trilinos package'' has
+  a specific meaning that, here we just mean package in the generic
+  sense} that can solve a large variety of problems with both their
+own algorithmic implementations and wrappers to other numerical
+libraries. SuperLU and hypre are specialized libraries that provide
+sophisticated solvers for a restricted family of problems. SuperLU
+provides sparse direct linear solvers and ILU preconditioners while
+hypre provides iterative solvers for linear systems.
+
+The xSDK provides a common system for installing and working with all of these packages so, in some sense, xSDK is meta-package.
+
 \input{trilinos_introduction}
 
 \input{petsc_introduction}
