@@ -1,7 +1,9 @@
 \section{hypre}
-Hypre is a library for solving large, sparse linear systems of equations on
-massively parallel computers.  While it contains linear solvers and an
-eigensolver called LOBPCG, it is probably most well-known for its
-preconditioners.
 
-Certain subsets of hypre are multithreaded.
+
+The {\sl hypre} software library provides high performance preconditioners and solvers for the solution of large sparse linear systems on massively parallel computers. It was created with the primary goal of providing users with advanced parallel preconditioners.
+The library features parallel multigrid solvers for both structured and unstructured grid problems. 
+For ease of use, these solvers are accessed from the application code via {\sl hypre}'s conceptual linear system interfaces, which allow a variety of natural problem descriptions and include a structured, a semi-structured interface, and a traditional linear-algebra based interface. The (semi-)structured interfaces are an alternative to the standard matrix-based interface that describes rows, columns, and coefficients of a matrix. Here, instead, matrices are described primarily in terms of stencils and logically structured grids. These interfaces give application users a more natural means for describing their linear systems, and provide access to methods such as structured multigrid solvers, which can take advantage of the additional information beyond just the matrix. 
+
+The library is written in C and has a Fortran interface. It supports MPI+OpenMP.
+More detailed information can be found at \cite{hypre_webpage, hypre_usr_manual}.
