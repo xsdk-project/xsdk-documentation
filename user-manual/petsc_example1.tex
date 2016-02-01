@@ -1,4 +1,4 @@
-Our first example (Program \ref{src/PETSc_AnasaziEx.cpp}) shows how to compute
+Our first example (Program \ref{PETSc_AnasaziEx.cpp}) shows how to compute
 the smallest eigenpairs of a PETSc Mat, specificially Poisson2D, using Trilinos'
 Anasazi package.
 
@@ -12,7 +12,7 @@ Include statements
 Typedefs and using statements to make the code more readable
 
 \paragraph{Lines 30--36}
-PETSc datatypes
+PETSc variables
 
 \paragraph{Lines 38--41}
 Get the command line arguments using PETSc.  This example has three of them: the
@@ -30,7 +30,25 @@ anywhere an Operator is accepted, but you can't necessarily use a RowMatrix
 anywhere a CrsMatrix is expected.}, we do not have to deep copy the data to a
 Tpetra::CrsMatrix.
 
-\paragraph{Line 66}
+\paragraph{Lines 66--67}
 Create a random initial guess for the eigensolver.  Note that we can treat
 tpetraA just like any other Tpetra::RowMatrix and obtain its domain map via
 getDomainMap().
+
+\paragraph{Lines 69--72}
+Create the eigenproblem for Anasazi.  We provide the operator $A$ as well as our
+initial guess for the set of desired eigenvectors to the constructor.  We then
+request a certain number of eigenvectors and inform the eigensolver that our
+problem is Hermitian\footnote{Some eigensolvers are optimized for use on
+Hermitian eigenproblems.  Others do not work on non-Hermitian problems at
+all, so it is important to specify this.}.
+
+\paragraph{Lines 74--77}
+Create the parameter list for the Riemannian Trust Region eigensolver.  We have
+elected to have the solver print out the list of approximate eigenvalues at each
+iteration, along with their associated residuals.  We also set our convergence
+tolerance here.
+
+\paragraph{Lines 79--82}
+Solve the eigenvalue problem.  After it is solved, we may grab the eigenvalues
+and eigenvectors via getSolution().

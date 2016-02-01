@@ -1,38 +1,25 @@
-The following example (Program \ref{Tpetra_KSPEx.cpp}) illustrates this process
-in greater detail.
+The second example (Program \ref{PETSc_Amesos2Ex.cpp}) demonstrates how to use
+PETSc datatypes with Trilinos packages that require a Tpetra::CrsMatrix.  One
+such package is Amesos2, which contains a variety of direct solvers (and
+interfaces to external direct solvers).  In this example, we will solve a linear
+system $Ax=b$ where $A$ is the 2D discretization of the Poisson operator on a
+unit cube, and $b$ is a random vector.
 
-\begin{lstinputlisting}[caption=Tpetra\_KSPEx.cpp,label=Tpetra_KSPEx.cpp]{src/Tpetra_KSPEx.cpp}
+\begin{lstinputlisting}[caption=PETSc\_Amesos2Ex.cpp,label=PETSc_Amesos2Ex.cpp]{src/PETSc_Amesos2Ex.cpp}
 \end{lstinputlisting}
 
-\paragraph{Lines 1--9}
-Include statements
+\paragraph{Lines 1--65}
+These lines are very similar to the previous example.  We set up convenient
+typedefs, read in the command line arguments with PETSc (in this case, the x
+and y dimensions of the grid), and set up the Poisson2D matrix.
 
-\paragraph{Lines 12--24}
-Typedefs and using statements to make the code more readable
+\paragraph{Lines 67--73}
+Create the initial guess for $x$ and the random RHS $b$.
 
-\paragraph{Lines 26--29}
-Set up MPI
+\paragraph{Lines 75--77}
+Copy the PETSc Mat and Vecs to Tpetra::CrsMatrix and Tpetra::Vector, so that
+we can use them with the Amesos2 linear solvers.
 
-\paragraph{Lines 31--40}
-Parse command line arguments.  This program allows the user to specify the
-filename for the matrix, the tolerance for the linear solve, and which linear
-solver is used.  A list of all valid linear solver options can be found at
-\url{http://www.mcs.anl.gov/petsc/petsc-current/docs/manualpages/KSP/KSPType.html}.
-
-\paragraph{Lines 42--46}
-Set up the linear system by reading the matrix from a file, setting the initial
-guess for the solution as $\vec{0}$ and setting the right hand side as
-$\vec{1}$.
-
-\paragraph{Lines 48--54}
-Set up the Ifpack2 Jacobi preconditioner.
-
-\paragraph{Lines 56--59}
-Set the maximum number of iterations, convergence tolerance, and which PETSc
-KSP solver is being used.
-
-\paragraph{Lines 61--64}
-Set up the linear problem for the Belos solver.
-
-\paragraph{Lines 66-68}
-Solve the linear system.
+\paragraph{Lines 79--82}
+Create an Amesos2 linear solver, specifically the native solver KLU2.  Perform
+the symbolic and numeric factorizations, then solve the linear system.

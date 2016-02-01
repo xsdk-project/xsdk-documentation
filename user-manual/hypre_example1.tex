@@ -1,5 +1,5 @@
-In this example (Program \ref{Hypre_SolveEx.cpp}), we will examine how to use
-hypre solvers and preconditioners with Tpetra objects.
+In our first example (Program \ref{Hypre_SolveEx.cpp}), we will examine how
+to use hypre solvers and preconditioners with Tpetra objects.
 
 \begin{lstinputlisting}[caption=Hypre\_SolveEx.cpp,label=Hypre_SolveEx.cpp]{src/Hypre_SolveEx.cpp}
 \end{lstinputlisting}
@@ -43,5 +43,5 @@ says we would also like to use BoomerAMG.  Remember that you must also set
 maximum number of iterations.
 
 \paragraph{Lines 108--109}
-Solve the linear system.  apply actually calls the hypre linear solve routine
-PCG with a BoomerAMG preconditioner, as we specified above.
+Solve the linear system.  The function ``apply'' actually calls the hypre linear
+solve routine PCG with a BoomerAMG preconditioner, as we specified above.
